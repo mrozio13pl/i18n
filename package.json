@@ -43,7 +43,6 @@
     "@mrozio/dlv": "^1.1.4"
   },
   "devDependencies": {
-    "@i18n/eslint-config": "workspace:*",
     "@testing-library/react": "^16.2.0",
     "@tsconfig/node18": "^18.2.4",
     "@types/node": "^22.13.14",

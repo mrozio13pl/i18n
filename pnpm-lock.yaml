@@ -15,9 +15,6 @@ importers:
         specifier: '>=10'
         version: 10.26.4
     devDependencies:
-      '@i18n/eslint-config':
-        specifier: workspace:*
-        version: link:config/eslint
       '@testing-library/react':
         specifier: ^16.2.0
         version: 16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

@@ -1,1 +1,1 @@
-export { default } from '@i18n/eslint-config';
+export { default } from './config/eslint/eslint.config.mjs';
