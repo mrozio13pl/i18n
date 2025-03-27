@@ -1,0 +1,4 @@
+{
+    "extends": "@i18n/tsconfig",
+    "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+}

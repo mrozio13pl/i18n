@@ -1,0 +1,7 @@
+{
+    "extends": "@tsconfig/vite-react",
+    "compilerOptions": {
+        "incremental": true,
+        "composite": false
+    }
+}

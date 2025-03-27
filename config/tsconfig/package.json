@@ -1,0 +1,7 @@
+{
+    "name": "@i18n/tsconfig",
+    "private": true,
+    "dependencies": {
+        "@tsconfig/vite-react": "^3.4.0"
+    }
+}

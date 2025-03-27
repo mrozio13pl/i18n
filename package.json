@@ -1,0 +1,81 @@
+{
+  "name": "@mrozio/i18n",
+  "version": "0.0.0",
+  "description": "Simple and type-safe i18n for React",
+  "repository": "mrozio13pl/i18n",
+  "author": "mrozio13pl",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "pkgroll --clean-dist",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run --coverage",
+    "changelog": "chng",
+    "release": "sh ./release.sh",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "i18n",
+    "react"
+  ],
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@mrozio/dlv": "^1.1.4"
+  },
+  "devDependencies": {
+    "@i18n/eslint-config": "workspace:*",
+    "@testing-library/react": "^16.2.0",
+    "@tsconfig/node18": "^18.2.4",
+    "@types/node": "^22.13.14",
+    "@types/react": "^19.0.12",
+    "@vitest/coverage-v8": "3.0.9",
+    "chng": "^0.1.0",
+    "eslint": "^9.23.0",
+    "happy-dom": "^17.4.4",
+    "husky": "^9.1.7",
+    "pkgroll": "^2.11.2",
+    "react": "^19.0.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  },
+  "peerDependencies": {
+    "preact": ">=10",
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "preact": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@swc/core",
+      "esbuild",
+      "sharp"
+    ]
+  },
+  "packageManager": "pnpm@10.7.0"
+}

@@ -1,0 +1,9 @@
+{
+    "extends": "@i18n/tsconfig",
+    "compilerOptions": {
+        "paths": {
+            "@/*": ["./src/*.json"]
+        }
+    },
+    "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+}
