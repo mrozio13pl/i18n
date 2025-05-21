@@ -1,4 +1,4 @@
-# @mrozio/i18n
+# @mrozio/i18n [![npm](https://img.shields.io/npm/v/@mrozio/i18n?color=%23FF6F61&label)](https://npm.im/@mrozio/i18n) [![bundle](https://img.shields.io/bundlephobia/minzip/@mrozio/i18n?color=%23FF6F61&label)](https://bundlephobia.com/result?p=@mrozio/i18n)
 
 > Simple and type-safe i18n for React
 
