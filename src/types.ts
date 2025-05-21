@@ -6,13 +6,13 @@ export type Locale = string;
 export type Translation<Args = any> = 
     | string 
     | { [key: string]: Translation }
-    | ((...args: Args[]) => string);
+    | ((...args: Args[]) => unknown);
 
 export type Translations<TLocales extends Locale[] = Locale[]> = Readonly<Record<TLocales[number], Translation>>;
 
 export type TranslationOutput<Output> = 
-    Output extends (...args: infer TArgs) => string
-    ? (...args: TArgs) => string : Output extends string 
+    Output extends (...args: infer TArgs) => infer R
+    ? (...args: TArgs) => R : Output extends string 
     ? string : Output extends Record<string, Translation>
     ? <TSubKey extends DotNested<Output>>(subkey: TSubKey) => TranslationOutput<Delve<Output, TSubKey>>
     : never;

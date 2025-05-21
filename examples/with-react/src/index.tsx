@@ -10,6 +10,7 @@ export function App() {
         <div>
             <h1>{section('user')('John')}</h1>
             <h1>{t('section.title')}</h1>
+            {section('jsx')()}
             <p>Language: {locale}</p>
             <button onClick={() => setLocale('en')}>EN</button>
             <button onClick={() => setLocale('es')}>ES</button>

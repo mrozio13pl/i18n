@@ -9,6 +9,9 @@ export const { useTranslate, useLocale, translations, setLocale } = createI18n({
             subtitle: 'Section subtitle',
             user(name: string) {
                 return `Hello, ${name}!`;
+            },
+            jsx() {
+                return <h1>Example JSX</h1>;
             }
         }
     },
@@ -18,6 +21,9 @@ export const { useTranslate, useLocale, translations, setLocale } = createI18n({
             subtitle: 'Subtítulo de la sección',
             user(name: string) {
                 return `Hola, ${name}!`;
+            },
+            jsx() {
+                return <h1>Ejemplo JSX</h1>;
             }
         }
     }
