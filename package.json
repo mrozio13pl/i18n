@@ -1,6 +1,6 @@
 {
   "name": "@mrozio/i18n",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simple and type-safe i18n for React",
   "repository": "mrozio13pl/i18n",
   "author": "mrozio13pl",
