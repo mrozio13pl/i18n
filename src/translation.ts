@@ -35,7 +35,9 @@ export type TranslationOptions<T extends Translations> = {
  */
 export function createI18n<T extends Translations>(translations: T, options: TranslationOptions<typeof translations> = {}) {
     const subscribers = new Set<Subscriber>();
-    let storedLocale: keyof T = options.defaultLocale || Object.keys(translations)[0];
+
+    const locales: (keyof T)[] = Object.keys(translations);
+    let storedLocale: keyof T = locales.includes(options.defaultLocale as never) ? options.defaultLocale! : locales[0];
 
     function subscribe(callback: Subscriber) {
         subscribers.add(callback);
@@ -43,9 +45,11 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
     }
 
     function setLocale(locale: LiteralStringUnion<keyof T>) {
-        storedLocale = locale;
-        subscribers.forEach((callback) => callback());
-        options.onLocaleChange?.(locale);
+        if (locales.includes(locale)) {
+            storedLocale = locale;
+            subscribers.forEach((callback) => callback());
+            options.onLocaleChange?.(locale);
+        }
     }
 
     const translate = <
@@ -83,8 +87,6 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
     function useLocale() {
         return [storedLocale, setLocale] as const;
     }
-
-    const locales: (keyof T)[] = Object.keys(translations);
 
     return {
         /**
