@@ -24,4 +24,4 @@ git tag "v$VERSION"
 git push origin "v$VERSION"
 
 # NPM
-npm publish
+pnpm publish

@@ -8,16 +8,16 @@
     },
     "dependencies": {
         "@mrozio/i18n": "workspace:*",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "react": "catalog:dev",
+        "react-dom": "catalog:dev"
     },
     "devDependencies": {
         "@i18n/tsconfig": "workspace:*",
-        "@types/node": "^22.13.14",
-        "@types/react": "^19.0.12",
-        "@types/react-dom": "^19.0.4",
-        "@vitejs/plugin-react-swc": "^3.8.1",
-        "typescript": "^5.8.2",
-        "vite": "^6.2.3"
+        "@types/node": "catalog:dev",
+        "@types/react": "catalog:dev",
+        "@types/react-dom": "catalog:dev",
+        "@vitejs/plugin-react-swc": "catalog:dev",
+        "typescript": "catalog:dev",
+        "vite": "catalog:dev"
     }
 }
