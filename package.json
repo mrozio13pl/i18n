@@ -58,10 +58,14 @@
     "vitest": "^3.1.4"
   },
   "peerDependencies": {
+    "@types/react": ">=18",
     "preact": ">=10",
     "react": ">=18"
   },
   "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
     "preact": {
       "optional": true
     },
