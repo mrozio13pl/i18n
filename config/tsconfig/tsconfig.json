@@ -1,7 +1,8 @@
 {
-    "extends": "@tsconfig/vite-react",
+    "extends": "@tsconfig/vite-react/tsconfig.json",
     "compilerOptions": {
         "incremental": true,
-        "composite": false
+        "composite": false,
+        "jsx": "react-jsx"
     }
 }
