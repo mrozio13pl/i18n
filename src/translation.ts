@@ -103,7 +103,6 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
         return translate;
     }
 
-    // eslint-disable-next-line @eslint-react/hooks-extra/no-unnecessary-use-prefix
     function useLocale() {
         return [storedLocale, setLocale] as const;
     }

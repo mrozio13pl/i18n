@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "@mrozio/i18n": "workspace:*",
-    "next": "^15.3.2",
+    "next": "^15.5.14",
     "react": "catalog:dev",
     "react-dom": "catalog:dev"
   },

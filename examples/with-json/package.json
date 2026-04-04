@@ -16,7 +16,7 @@
         "@types/node": "catalog:dev",
         "@types/react": "catalog:dev",
         "@types/react-dom": "catalog:dev",
-        "@vitejs/plugin-react-swc": "catalog:dev",
+        "@vitejs/plugin-react": "catalog:dev",
         "typescript": "catalog:dev",
         "vite": "catalog:dev"
     }

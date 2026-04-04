@@ -8,12 +8,12 @@
     },
     "dependencies": {
         "@mrozio/i18n": "workspace:*",
-        "preact": "^10.26.6",
-        "react": "npm:@preact/compat@^18.3.1",
-        "react-dom": "npm:@preact/compat@^18.3.1"
+        "preact": "^10.29.1",
+        "react": "npm:@preact/compat@^18.3.2",
+        "react-dom": "npm:@preact/compat@^18.3.2"
     },
     "devDependencies": {
-        "@preact/preset-vite": "^2.10.1",
+        "@preact/preset-vite": "^2.10.5",
         "@types/node": "catalog:dev",
         "typescript": "catalog:dev",
         "vite": "catalog:dev"

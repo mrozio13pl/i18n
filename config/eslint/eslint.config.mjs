@@ -15,6 +15,11 @@ export default tseslint.config([
             quotes: ['error', 'single'],
             'prefer-const': 'error',
             '@eslint-react/dom/no-missing-button-type': 'off',
+            '@eslint-react/component-hook-factories': 'off',
+            '@eslint-react/use-state': 'off',
+            '@eslint-react/exhaustive-deps': 'warn',
+            '@eslint-react/no-unnecessary-use-prefix': 'off'
+
         },
         extends: [
             eslintJs.configs.recommended,
@@ -24,6 +29,7 @@ export default tseslint.config([
     },
     {
         files: ['**/*.json'],
-        extends: [json.configs.recommended],
+        plugins: { json },
+        processor: 'json/json'
     }
 ]);
