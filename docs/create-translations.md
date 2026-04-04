@@ -48,6 +48,18 @@ onLocaleChange(locale) {
 }
 ```
 
+##### fallbackLocales
+
+If a key is missing in the current locale, it will look for it in the fallback locales in the specified order.
+
+```ts
+fallbackLocales: ['pt', 'en']
+```
+
+For example, if a key is not found in the active locale, it will first try `pt`, and if it’s still missing, it will then try `en`.
+
+Additionally, f the current locale includes a regional variant (e.g. `pt-BR`), it will fall back to the base language (`pt`) if set.
+
 ### Hooks & helpers
 
 The `createI18n` function returns all hooks and functions you need for handling translations:

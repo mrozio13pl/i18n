@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import delve from '@mrozio/dlv';
-import type { DotNested, LiteralStringUnion, Subscriber, TranslationReturn, Translations } from '@/types';
+import type { DotNested, LiteralStringUnion, Locale, Subscriber, TranslationReturn, Translations } from '@/types';
 
 export type TranslationOptions<T extends Translations> = {
     defaultLocale?: LiteralStringUnion<keyof T>;
+    fallbackLocales?: LiteralStringUnion<keyof T>[];
     onLocaleChange?: (locale: keyof T) => void;
 }
 
@@ -11,7 +12,7 @@ export type TranslationOptions<T extends Translations> = {
  * Create i18n instance.
  * @param translations - Translations
  * @param options - Options
- * 
+ *
  * @example
  * ```tsx
  * // translations.ts
@@ -36,8 +37,15 @@ export type TranslationOptions<T extends Translations> = {
 export function createI18n<T extends Translations>(translations: T, options: TranslationOptions<typeof translations> = {}) {
     const subscribers = new Set<Subscriber>();
 
+    const buildFallbackChain = (locale: Locale) => [...new Set([
+        locale,
+        locale.split('-')[0],
+        ...(options.fallbackLocales as Locale[] ?? [])
+    ])];
+
     const locales: (keyof T)[] = Object.keys(translations);
-    let storedLocale: keyof T = locales.includes(options.defaultLocale as never) ? options.defaultLocale! : locales[0];
+    let storedLocale: keyof T = locales.includes(options.defaultLocale as never) ? options.defaultLocale! : locales[0],
+        fallbackChain = buildFallbackChain(storedLocale as string);
 
     function subscribe(callback: Subscriber) {
         subscribers.add(callback);
@@ -47,6 +55,7 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
     function setLocale(locale: LiteralStringUnion<keyof T>) {
         if (locales.includes(locale)) {
             storedLocale = locale;
+            fallbackChain = buildFallbackChain(locale as string);
             subscribers.forEach((callback) => callback());
             options.onLocaleChange?.(locale);
         }
@@ -57,20 +66,31 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
         TKey extends DotNested<TTranslations[keyof TTranslations]> = DotNested<TTranslations[keyof TTranslations]>
     >(
             key: TKey,
-            _translations: TTranslations = translations[storedLocale] as never
+            _translations?: TTranslations
         ): TranslationReturn<TTranslations, TKey> => {
-        if (typeof _translations === 'string' || typeof _translations === 'function') {
-            return _translations as TranslationReturn<TTranslations, TKey>;
+
+        const sources = _translations
+            ? [_translations]
+            : fallbackChain.map(l => translations[l]).filter(Boolean);
+
+        for (const source of sources) {
+            if (typeof source === 'string' || typeof source === 'function') {
+                return source as TranslationReturn<TTranslations, TKey>;
+            }
+
+            const result = delve(source, key);
+
+            if (!result) continue;
+
+            if (typeof result === 'string' || typeof result === 'function') {
+                return result as TranslationReturn<TTranslations, TKey>;
+            }
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            return ((subkey: string) => translate(subkey, result as any)) as TranslationReturn<TTranslations, TKey>;
         }
-    
-        const translation = delve(_translations, key);
-    
-        if (typeof translation === 'string' || typeof translation === 'function') {
-            return translation as TranslationReturn<TTranslations, TKey>;
-        }
-    
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return ((subkey: string) => translate(subkey, translation as any)) as TranslationReturn<TTranslations, TKey>;
+
+        return void 0 as unknown as TranslationReturn<TTranslations, TKey>;
     };
 
     function useTranslate() {
@@ -91,12 +111,12 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
     return {
         /**
          * Hook for translations.
-         * 
+         *
          * @param key - Path to the translation.
          * @example
          * ```tsx
          * import { createI18n } from '@mrozio/i18n';
-         * 
+         *
          * const { useTranslate } = createI18n({
          *      en: {
          *          hello: 'Hello',
@@ -113,10 +133,10 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
          *          }
          *      }
          * });
-         * 
+         *
          * function App() {
          *     const t = useTranslate();
-         * 
+         *
          *     return (
          *         <>
          *             <h1>{t('hello')}</h1>
@@ -131,16 +151,16 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
 
         /**
          * Hook for locale.
-         * 
+         *
          * @example
          * ```tsx
          * import { createI18n } from '@mrozio/i18n';
-         * 
+         *
          * const { useLocale } = createI18n({});
-         * 
+         *
          * function App() {
          *     const [locale, setLocale] = useLocale();
-         * 
+         *
          *     return (
          *         <>
          *             <h1>{locale}</h1>
@@ -150,7 +170,7 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
          *     );
          * }
          * ```
-         */    
+         */
         useLocale,
 
         /** Current locale. */
@@ -160,35 +180,35 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
 
         /**
          * Set the locale.
-         * 
+         *
          * @param locale - Locale to set.
          * @example
          * ```tsx
          * import { createI18n } from '@mrozio/i18n';
-         * 
+         *
          * const { setLocale } = createI18n({});
-         * 
+         *
          * setLocale('en'); // Updates the locale to 'en'.
          * ```
          */
         setLocale,
 
         /** Translations object. */
-        translations, 
+        translations,
 
         /** List of locales used in your translations. */
         locales,
 
         /**
          * Use translations outside components.
-         * 
+         *
          * @param key - Path to the translation.
          * @example
          * ```tsx
          * import { createI18n } from '@mrozio/i18n';
-         * 
+         *
          * const { translate } = createI18n({});
-         * 
+         *
          * const title = translate('section.title');
          * ```
          */
@@ -196,14 +216,14 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
 
         /**
          * Subscribe to locale changes.
-         * 
+         *
          * @param callback - Function to call when locale changes.
          * @example
          * ```tsx
          * import { createI18n } from '@mrozio/i18n';
-         * 
+         *
          * const { subscribe } = createI18n({});
-         * 
+         *
          * subscribe(() => console.log('Locale changed!'));
          * ```
          */
