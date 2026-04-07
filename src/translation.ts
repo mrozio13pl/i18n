@@ -90,7 +90,7 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
             return ((subkey: string) => translate(subkey, result as any)) as TranslationReturn<TTranslations, TKey>;
         }
 
-        return void 0 as unknown as TranslationReturn<TTranslations, TKey>;
+        return key as TranslationReturn<TTranslations, TKey>;
     };
 
     function useTranslate() {
