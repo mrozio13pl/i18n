@@ -104,6 +104,12 @@ export function createI18n<T extends Translations>(translations: T, options: Tra
     }
 
     function useLocale() {
+        const forceUpdate = useState(0)[1];
+
+        useEffect(() => {
+            return subscribe(() => forceUpdate((n) => n + 1)) as never;
+        }, []);
+
         return [storedLocale, setLocale] as const;
     }
 
